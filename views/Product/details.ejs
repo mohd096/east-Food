@@ -1,0 +1,44 @@
+<div>
+    <h3><%= product.title %></h3>
+    <p>Price = <%= product.price %>BD</p>
+    <p><%= product.desc %></p>
+    <button onclick="addToCart('<%= product._id %>')">Add to Cart</button>
+  </div>
+  <script>
+
+  function addToCart(productId) {
+  console.log(productId);
+
+  // Get existing cart data from local storage
+  let cartData = localStorage.getItem('cart');
+  let cartItems = [];
+
+  if (cartData) {
+    cartItems = JSON.parse(cartData);
+  }
+
+  // Create product object
+  let product = {
+    productId: productId,
+    quantity: 1, // You can set an initial quantity here
+  };
+
+  // Add product to cart items
+  cartItems.push(product);
+
+  // Update local storage
+  localStorage.setItem('cart', JSON.stringify(cartItems));
+
+  alert('Item added to cart');
+}
+function displayCart() {
+  let cartData = localStorage.getItem('cart');
+  let cartItems = [];
+
+  if (cartData) {
+    cartItems = JSON.parse(cartData);
+  }
+
+}
+
+  </script>

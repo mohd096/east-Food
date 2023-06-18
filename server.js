@@ -1,9 +1,11 @@
+require('dotenv').config()
+
 const express = require("express");
 const mongoose = require("mongoose");
 const expressLayouts = require("express-ejs-layouts");
 const session = require("express-session");
 const bodyParser = require("body-parser");
-const ejs = require("ejs");
+// const ejs = require("ejs");
 
 const passport = require("./lib/passportConfig");
 
@@ -13,9 +15,15 @@ const authRoute = require("./routes/auth");
 const menuRoute = require("./routes/menu");
 const userRoute = require("./routes/profile");
 const adminRoute = require("./routes/admin");
+const productRoute = require("./routes/product");
+const cartRoute = require("./routes/cart");
 
 //install our app
 const app = express();
+
+app.use(bodyParser.urlencoded(
+  { extended:true }
+))
 
 app.use(expressLayouts);
 app.set("view engine", "ejs");
@@ -46,11 +54,14 @@ app.use(function (req, res, next) {
   next();
 });
 
+
 //mount our routes
 app.use("/", indexRoute);
 app.use("/", authRoute);
 app.use("/", menuRoute);
 app.use("/", userRoute);
+app.use("/", cartRoute);
+app.use("/", productRoute);
 
 //mount admin routes
 app.use("/", adminRoute);
@@ -71,17 +82,18 @@ app.get("/auth/sigin", (req, res) => {
 
 //mount our server
 
-app.listen(4000, () => {
+app.listen(4002, () => {
   console.log("Server running on port 4000");
 });
 
 //connect to dataBase
 
-mongoose
-  .connect("mongodb://127.0.0.1:27017/eastFood", {
-    useNewUrlparser: true,
-    useUnifiedTopology: true,
-  })
+mongoose.connect(process.env.DB,
+  {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+  }
+)
   .then(() => {
     console.log("Mongoose Is Connected to MongoDB");
   })
