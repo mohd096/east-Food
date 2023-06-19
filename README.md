@@ -1,4 +1,5 @@
 # eastFood
+## DEployed Link https://eastfood.onrender.com/
 ## ERD of THe Idea:
 #### it is a menu that display (Main Dishes , Desserts , Drinks) , user should sign-in OR sign_up to add items into the cart, user shpuld be able to edit his own information also able to change Password when forgetting it.
 ## wireframes:
